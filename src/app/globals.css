@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --acid: #00FF94;
+    --plasma: #7C3AED;
+    --void: #080B10;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-void text-text-primary font-body antialiased;
+    background-image: 
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(124, 58, 237, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0, 255, 148, 0.04) 0%, transparent 50%);
+    min-height: 100vh;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; height: 4px; }
+  ::-webkit-scrollbar-track { @apply bg-void; }
+  ::-webkit-scrollbar-thumb { @apply bg-border rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-text-muted; }
+}
+
+@layer components {
+  /* Card base */
+  .card {
+    @apply bg-panel border border-border rounded-xl shadow-panel;
+  }
+
+  /* Acid glow text */
+  .text-acid-glow {
+    text-shadow: 0 0 20px rgba(0, 255, 148, 0.4);
+  }
+
+  /* Grid noise overlay */
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(31, 41, 55, 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(31, 41, 55, 0.3) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Animated border */
+  .border-acid {
+    border-color: #00FF94;
+  }
+
+  /* Badge */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-mono font-medium;
+  }
+
+  /* Btn */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-display font-semibold text-sm
+           bg-acid text-void hover:bg-acid-dim active:scale-95
+           transition-all duration-200 shadow-acid-glow;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-display font-semibold text-sm
+           bg-border text-text-primary hover:bg-panel border border-border
+           transition-all duration-200;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-3 py-2 rounded-lg text-sm
+           text-text-secondary hover:text-text-primary hover:bg-border
+           transition-all duration-150;
+  }
+
+  /* Input */
+  .input-field {
+    @apply w-full bg-surface border border-border rounded-lg px-4 py-2.5
+           text-text-primary font-mono text-sm placeholder:text-text-muted
+           focus:outline-none focus:border-acid focus:ring-1 focus:ring-acid/20
+           transition-colors duration-150;
+  }
+
+  /* Status dot */
+  .dot-green { @apply w-2 h-2 rounded-full bg-acid shadow-[0_0_6px_#00FF94]; }
+  .dot-red { @apply w-2 h-2 rounded-full bg-danger; }
+  .dot-yellow { @apply w-2 h-2 rounded-full bg-ember; }
+}
+
+/* Toast animation */
+@keyframes toast-enter {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes toast-exit {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(100%); opacity: 0; }
+}
+.toast-enter { animation: toast-enter 0.3s ease-out; }
+.toast-exit { animation: toast-exit 0.3s ease-in forwards; }

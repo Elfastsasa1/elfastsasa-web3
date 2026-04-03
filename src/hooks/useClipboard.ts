@@ -1,0 +1,27 @@
+"use client";
+
+import { useState, useCallback } from "react";
+
+/**
+ * Custom hook for clipboard copy with visual feedback.
+ * Returns [copied, copyFn] — copied resets to false after `resetMs`.
+ */
+export function useClipboard(resetMs = 2000) {
+  const [copied, setCopied] = useState(false);
+
+  const copy = useCallback(
+    async (text: string) => {
+      try {
+        await navigator.clipboard.writeText(text);
+        setCopied(true);
+        setTimeout(() => setCopied(false), resetMs);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [resetMs]
+  );
+
+  return { copied, copy };
+}
